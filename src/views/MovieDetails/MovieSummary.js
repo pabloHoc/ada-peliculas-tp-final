@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-import ActorCard from "features/actors/components/ActorCard/ActorCard"
-import SocialMediaLinks from "features/movies/components/SocialMediaILinks/SocialMediaLinks"
+import ActorCard from "components/ActorCard/ActorCard"
+import SocialMediaLinks from "components/SocialMediaILinks/SocialMediaLinks"
 import Slider from "components/Slider/Slider"
-import { useMovie, useCast, useExternalIds } from "services/api/movieDb"
+import { useMovie, useCast, useExternalIds } from "apis/movieDb"
 
 const FlexContainer = styled.div`
   display: flex;

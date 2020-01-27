@@ -1,23 +1,30 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import PATHS from "constants/paths"
+import styled from "styled-components"
 
-const Nav = () => (
-  <div>
-    <ul>
-      <li>
-        <Link to="/movies?category=upcoming">Upcoming</Link>
-      </li>
-      <li>
-        <Link to="/movies?category=popular">Popular</Link>
-      </li>
-      <li>
-        <Link to="/movies?category=top_rated">Top Rated</Link>
-      </li>
-      <li>
-        <Link to="/movies?category=now_playing">Now Playing</Link>
-      </li>
-    </ul>
-  </div>
+const Flex = styled.nav`
+  display: flex;
+`
+
+// TODO: make NavLinks
+// TODO: make Header including Nav with button and user name
+
+const Nav = ({ isAuthenticated }) => (
+  <Flex>
+    <Link to={PATHS.UPCOMING_MOVIES}>Upcoming</Link>
+    <Link to={PATHS.POPULAR_MOVIES}>Popular</Link>
+    <Link to={PATHS.TOP_RATED}>Top Rated</Link>
+    <Link to={PATHS.NOW_PLAYING_MOVIES}>Now Playing</Link>
+    {isAuthenticated ? (
+      <Link to={PATHS.COLLECTION_LIST}>Collections</Link>
+    ) : (
+      <>
+        <Link to={PATHS.SIGN_IN}>Sign In</Link>
+        <Link to={PATHS.SIGN_UP}>Sign Up</Link>
+      </>
+    )}
+  </Flex>
 )
 
 export default Nav

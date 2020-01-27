@@ -1,7 +1,7 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
-import { useActor } from "services/api/movieDb"
+import { useActor } from "apis/movieDb"
 
 const ActorContainer = styled.div`
   display: flex;

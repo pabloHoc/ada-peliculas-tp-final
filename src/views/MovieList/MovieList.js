@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import styled from "styled-components"
 import useQuery from "utils/hooks/useQuery"
-import MovieCard from "features/movies/components/MovieCard/MovieCard"
+import MovieCard from "components/MovieCard/MovieCard"
 import { useHistory } from "react-router-dom"
 
 const StyledMoviesContainer = styled.div`
@@ -24,11 +24,13 @@ const MovieList = () => {
   const history = useHistory()
   const page = Number(pageStr)
 
+  // TODO: ADD debounce
+
   useEffect(() => {
     const getUrl = (isSearch, keyword, page) =>
       `https://api.themoviedb.org/3${
-        isSearch ? `/search/movie?query=${keyword}` : `/movies/${keyword}?`
-      }&page=${page}&api_key=6a93319b2d78795675b8bd9aa0965a95`
+        isSearch ? `/search/movie?query=${keyword}&` : `/movie/${keyword}?`
+      }page=${page}&api_key=6a93319b2d78795675b8bd9aa0965a95`
 
     const url = query ? getUrl(true, query, page) : getUrl(false, category, page)
 

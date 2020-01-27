@@ -17,7 +17,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (value) history.push(`/?query=${value}`)
+      history.push(value ? `/?query=${value}` : "/")
     }, 200)
   }, [value, history])
 

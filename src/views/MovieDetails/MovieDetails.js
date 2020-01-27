@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
 import Tabs from "components/Tabs/Tabs"
-import MovieCard from "features/movies/components/MovieCard/MovieCard"
+import MovieCard from "components/MovieCard/MovieCard"
 import MovieBackdrop from "./MovieBackdrop"
 import MovieSummary from "./MovieSummary"
 import MovieVideos from "./MovieVideos"
