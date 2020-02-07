@@ -8,6 +8,7 @@ import MovieCard from "components/MovieCard/MovieCard"
 import MovieBackdrop from "./MovieBackdrop"
 import MovieSummary from "./MovieSummary"
 import MovieVideos from "./MovieVideos"
+import MovieCollections from "./MovieCollections"
 
 const StyledMoviesContainer = styled.div`
   display: flex;
@@ -21,11 +22,18 @@ const StyledMovieCard = styled(MovieCard)`
 // TODO: Pasar todos fetch a MovieDetails
 
 const MovieDetails = () => {
-  const [similarMovies, setSimilarMovies] = useState([])
+  const [movie, setMovie] = useState(null)
   const [videos, setVideos] = useState([])
+  const [similarMovies, setSimilarMovies] = useState([])
   const { id } = useParams()
 
   useEffect(() => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=6a93319b2d78795675b8bd9aa0965a95`
+      )
+      .then(response => setMovie(response.data))
+
     axios
       .get(
         `https://api.themoviedb.org/3/movie/${id}/similar?api_key=6a93319b2d78795675b8bd9aa0965a95`
@@ -39,9 +47,12 @@ const MovieDetails = () => {
       .then(response => setVideos(response.data.results))
   }, [id])
 
+  if (!movie) return null
+
   return (
     <div>
-      <MovieBackdrop id={id} />
+      <MovieBackdrop src={movie.backdrop_path} title={movie.original_title} />
+      <MovieCollections movieData={movie} />
       <Tabs>
         <Tabs.Panel label="Información">
           <MovieSummary id={id} />

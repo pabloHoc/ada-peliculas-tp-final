@@ -25,13 +25,13 @@ const App = () => (
         <Route exact path={PATHS.HOME} component={MovieList} />
 
         {/* Auth routes */}
-        <Route path={PATHS.SIGN_IN} component={SignIn} />
-        <Route path={PATHS.SIGN_UP} component={SignUp} />
+        <Route exact path={PATHS.SIGN_IN} component={SignIn} />
+        <Route exact path={PATHS.SIGN_UP} component={SignUp} />
 
         {/* Public routes */}
         <Route exact path={PATHS.MOVIE_LIST} component={MovieList} />
-        <Route path={PATHS.MOVIE_DETAILS} component={MovieDetails} />
-        <Route path={PATHS.ACTOR_DETAILS} component={ActorDetails} />
+        <Route exact path={PATHS.MOVIE_DETAILS} component={MovieDetails} />
+        <Route exact path={PATHS.ACTOR_DETAILS} component={ActorDetails} />
 
         {/* Private routes */}
         <PrivateRoute
@@ -40,6 +40,7 @@ const App = () => (
           component={CollectionList}
         />
         <PrivateRoute
+          exact
           path={PATHS.COLLECTION_DETAILS}
           component={CollectionDetails}
         />
