@@ -2,22 +2,23 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import styled from "styled-components"
 import useQuery from "utils/hooks/useQuery"
-import MovieCard from "components/MovieCard/MovieCard"
+import MovieList from "components/MovieList/MovieList"
 import { useHistory } from "react-router-dom"
+import { Flex, Title } from "components/Common/Common"
 
-const StyledMoviesContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+const MoviesContainer = styled(Flex)`
+  flex-basis: 80%;
+  flex-grow: 1;
+  background-color: ${({ theme }) => theme.colors.gray[900]};
 `
 
-const StyledMovieCard = styled(MovieCard)`
-  width: 185px;
-  margin: 10px;
+const StyledTitle = styled(Title)`
+  margin: 10px 10px 20px;
 `
 
 // TODO: hacer un pager
 
-const MovieList = () => {
+const MovieResults = ({ className }) => {
   // TODO: Explicar este proceso paso a paso
   const { category = "now_playing", query, page: pageStr = 1 } = useQuery()
   const [movies, setMovies] = useState([])
@@ -50,22 +51,19 @@ const MovieList = () => {
     history.push(url)
   }
 
+  const sanitizeCategory = category =>
+    category
+      .split("_")
+      .map(w => w[0].toUpperCase() + w.slice(1))
+      .join(" ")
+
   return (
-    <>
-      <StyledMoviesContainer>
-        {movies.length &&
-          movies.map(movie => (
-            <StyledMovieCard
-              key={movie.id}
-              id={movie.id}
-              img={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
-              title={movie.title}
-            />
-          ))}
-      </StyledMoviesContainer>
+    <MoviesContainer className={className} flexDirection="column">
+      <StyledTitle>{sanitizeCategory(category)}</StyledTitle>
+      <MovieList movies={movies} />
       <button onClick={handleClick}>Cargar más</button>
-    </>
+    </MoviesContainer>
   )
 }
 
-export default MovieList
+export default MovieResults

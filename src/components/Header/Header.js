@@ -1,19 +1,30 @@
 import React from "react"
+
 import { useRouteMatch } from "react-router-dom"
 import { useAuth } from "utils/hooks/useAuth"
-import styled from "styled-components"
-import Nav from "components/Nav/Nav"
-import SearchBar from "components/SearchBar/SearchBar"
 import PATHS from "constants/paths"
 
-const HeaderWrapper = styled.header``
-const Flex = styled.div`
-  display: flex;
-  justify-content: ${props => props.justifyContent || "flex-start"};
-  align-items: center;
+import styled from "styled-components"
+
+import SearchBar from "components/SearchBar/SearchBar"
+import { Flex } from "components/Common/Common"
+import { SignOut } from "styled-icons/octicons/SignOut"
+
+const HeaderWrapper = styled.header`
+  padding: 5px 20px;
 `
-const UserGreeting = styled.p``
-const SignOutButton = styled.button``
+
+const UserGreeting = styled.p`
+  font-size: 20px;
+  margin-right: 15px;
+`
+
+const SignOutIcon = styled(SignOut)`
+  width: 25px;
+  height: 25px;
+  color: ${({ theme }) => theme.colors.gray[100]};
+  cursor: pointer;
+`
 
 const Header = () => {
   const { isAuthenticated, signOutUser, user } = useAuth()
@@ -23,16 +34,15 @@ const Header = () => {
 
   return (
     <HeaderWrapper>
-      <Flex justifyContent="space-between">
-        <Nav isAuthenticated={isAuthenticated} />
+      <Flex justifyContent="space-between" alignItems="center">
+        {!isAuth && <SearchBar />}
         {isAuthenticated && (
-          <Flex>
-            <UserGreeting>Hi {user.firstname}</UserGreeting>
-            <SignOutButton onClick={signOutUser}>Sign out</SignOutButton>
+          <Flex alignItems="center">
+            <UserGreeting>Hola {user.firstname}</UserGreeting>
+            <SignOutIcon onClick={signOutUser} />
           </Flex>
         )}
       </Flex>
-      {!isAuth && <SearchBar />}
     </HeaderWrapper>
   )
 }

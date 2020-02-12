@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { useParams } from "react-router-dom"
+import { Route, NavLink, useParams, useRouteMatch } from "react-router-dom"
 import styled from "styled-components"
 
-import Tabs from "components/Tabs/Tabs"
-import MovieCard from "components/MovieCard/MovieCard"
+import MovieList from "components/MovieList/MovieList"
 import MovieBackdrop from "./MovieBackdrop"
 import MovieSummary from "./MovieSummary"
 import MovieVideos from "./MovieVideos"
 import MovieCollections from "./MovieCollections"
 
-const StyledMoviesContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+const Container = styled.div`
+  flex-grow: 1;
+  padding: 40px;
 `
-const StyledMovieCard = styled(MovieCard)`
-  width: 185px;
+
+const NavLinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  margin-bottom: 30px;
+`
+
+const StyledNavLink = styled(NavLink)`
+  font-size: 20px;
+  font-weight: bold;
   margin: 10px;
+  padding-bottom: 10px;
+
+  &.active {
+    border-bottom: 2px solid ${({ theme }) => theme.colors.gray[100]};
+  }
 `
 
 // TODO: Pasar todos fetch a MovieDetails
@@ -26,6 +39,7 @@ const MovieDetails = () => {
   const [videos, setVideos] = useState([])
   const [similarMovies, setSimilarMovies] = useState([])
   const { id } = useParams()
+  const { path, url } = useRouteMatch()
 
   useEffect(() => {
     axios
@@ -50,31 +64,32 @@ const MovieDetails = () => {
   if (!movie) return null
 
   return (
-    <div>
-      <MovieBackdrop src={movie.backdrop_path} title={movie.original_title} />
-      <MovieCollections movieData={movie} />
-      <Tabs>
-        <Tabs.Panel label="Información">
+    <>
+      <MovieBackdrop src={movie.backdrop_path} />
+      <Container>
+        <MovieCollections movieData={movie} />
+        <NavLinkContainer>
+          <StyledNavLink exact to={url} activeClassName="active">
+            INFORMACION
+          </StyledNavLink>
+          <StyledNavLink to={`${url}/videos`} activeClassName="active">
+            VIDEOS
+          </StyledNavLink>
+          <StyledNavLink to={`${url}/similar`} activeClassName="active">
+            SIMILARES
+          </StyledNavLink>
+        </NavLinkContainer>
+        <Route exact path={`${path}/`}>
           <MovieSummary id={id} />
-        </Tabs.Panel>
-        <Tabs.Panel label="Videos">
+        </Route>
+        <Route exact path={`${path}/videos`}>
           <MovieVideos videos={videos} />
-        </Tabs.Panel>
-        <Tabs.Panel label="Similares">
-          <StyledMoviesContainer>
-            {similarMovies.length &&
-              similarMovies.map(movie => (
-                <StyledMovieCard
-                  key={movie.id}
-                  id={movie.id}
-                  img={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
-                  title={movie.title}
-                />
-              ))}
-          </StyledMoviesContainer>
-        </Tabs.Panel>
-      </Tabs>
-    </div>
+        </Route>
+        <Route exact path={`${path}/similar`}>
+          <MovieList movies={similarMovies} />
+        </Route>
+      </Container>
+    </>
   )
 }
 

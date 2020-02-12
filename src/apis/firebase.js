@@ -25,7 +25,7 @@ export const updateDoc = (collection, id, data) =>
   collection
     .doc(id)
     .update(data)
-    .then(doc => ({ id: doc.id, ...doc.data() }))
+    .then(() => true)
     .catch(error => error)
 
 export const getDocs = collection =>

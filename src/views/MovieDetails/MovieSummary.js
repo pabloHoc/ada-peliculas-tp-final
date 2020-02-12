@@ -1,9 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import ActorCard from "components/ActorCard/ActorCard"
 import SocialMediaLinks from "components/SocialMediaILinks/SocialMediaLinks"
-import Slider from "components/Slider/Slider"
-import { useMovie, useCast, useExternalIds } from "apis/movieDb"
+import { useMovie, useExternalIds } from "apis/movieDb"
 
 const FlexContainer = styled.div`
   display: flex;
@@ -12,26 +10,41 @@ const FlexContainer = styled.div`
 
 const InfoContainer = styled.div`
   flex: 1;
+  max-width: 600px;
+  padding: 0 30px;
+`
+
+const MoviePoster = styled.img`
+  width: 250px;
+`
+
+const MovieTitle = styled.h1`
+  margin-top: 0;
+`
+
+const StyledSocialMediaLinks = styled(SocialMediaLinks)`
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
 `
 
 const MovieSummary = ({ id }) => {
   const movie = useMovie(id)
-  const cast = useCast(id)
   const externalIds = useExternalIds(id)
 
   return (
     movie && (
       <>
-        <h1>{movie.original_title}</h1>
         <FlexContainer>
-          <img
+          <MoviePoster
             src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
             alt={`Poster de ${movie.original_title}`}
           />
           <InfoContainer>
+            <MovieTitle>{movie.original_title}</MovieTitle>
             <p>{movie.overview}</p>
             {externalIds && (
-              <SocialMediaLinks
+              <StyledSocialMediaLinks
                 imdbId={externalIds.imdb_id}
                 facebookId={externalIds.facebook_id}
                 instagramId={externalIds.instagram_id}
@@ -40,22 +53,6 @@ const MovieSummary = ({ id }) => {
             )}
           </InfoContainer>
         </FlexContainer>
-        {cast && (
-          <Slider>
-            {cast.map(
-              actor =>
-                actor.profile_path && (
-                  <ActorCard
-                    key={actor.id}
-                    id={actor.id}
-                    img={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
-                    name={actor.name}
-                    character={actor.character}
-                  />
-                )
-            )}
-          </Slider>
-        )}
       </>
     )
   )

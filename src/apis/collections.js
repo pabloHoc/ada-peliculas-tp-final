@@ -24,12 +24,21 @@ export const getCollectionById = collectionId => getDoc(collections, collectionI
 
 export const getCollectionByName = name => searchDocs(collections, { name })
 
+export const updateCollectionName = (collectionId, name) =>
+  updateDoc(collections, collectionId, { name })
+
 export const deleteCollection = collectionId => deleteDoc(collections, collectionId)
 
 export const addMovie = (collectionId, { id: movieId, ...movieData }) =>
   updateDoc(collections, collectionId, {
     [`movies.${movieId}`]: movieData,
     movieIds: firebase.firestore.FieldValue.arrayUnion(movieId)
+  })
+
+export const removeMovie = (collectionId, movieId) =>
+  updateDoc(collections, collectionId, {
+    [`movies.${movieId}`]: firebase.firestore.FieldValue.delete(),
+    movieIds: firebase.firestore.FieldValue.arrayRemove(movieId)
   })
 
 export const searchByMovieId = movieId =>

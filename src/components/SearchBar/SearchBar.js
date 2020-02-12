@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { useHistory } from "react-router-dom"
 
-const SearchContainer = styled.div``
 const SearchInput = styled.input`
-  border: 1px solid lightgray;
+  background: transparent;
+  border: 0;
   padding: 10px 20px;
   font-size: 20px;
+  color: ${({ theme }) => theme.colors.gray[100]};
 `
 
 const SearchBar = () => {
@@ -22,9 +23,7 @@ const SearchBar = () => {
   }, [value, history])
 
   return (
-    <SearchContainer>
-      <SearchInput value={value} onChange={handleChange} />
-    </SearchContainer>
+    <SearchInput value={value} onChange={handleChange} placeholder="Búsqueda..." />
   )
 }
 

@@ -1,12 +1,10 @@
-import React from 'react'
+import React from "react"
+import { ListItem } from "components/Common/Common"
 
-const Tab = ({className, activeTab, label, onClick}) => (
-  <li
-    className={className}
-    onClick={() => onClick(label)}
-  >
+const Tab = ({ className, activeTab, label, onClick }) => (
+  <ListItem className={className} onClick={() => onClick(label)}>
     {label}
-  </li>
+  </ListItem>
 )
 
 export default Tab
