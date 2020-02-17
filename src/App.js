@@ -69,28 +69,26 @@ const App = () => (
         <StyledFlexContainer alignItems="stretch" wrap="no-wrap">
           <SidebarNav />
           <ViewContainer>
-            <Switch>
-              <Route exact path={PATHS.HOME} component={StyledMovieResults} />
-              {/* Auth routes */}
-              <Route exact path={PATHS.SIGN_IN} component={SignIn} />
-              <Route exact path={PATHS.SIGN_UP} component={SignUp} />
+            <Route exact path={PATHS.HOME} component={StyledMovieResults} />
+            {/* Auth routes */}
+            <Route exact path={PATHS.SIGN_IN} component={SignIn} />
+            <Route exact path={PATHS.SIGN_UP} component={SignUp} />
 
-              {/* Public routes */}
-              <Route exact path={PATHS.MOVIE_LIST} component={StyledMovieResults} />
-              <Route path={PATHS.MOVIE_DETAILS} component={MovieDetails} />
+            {/* Public routes */}
+            <Route exact path={PATHS.MOVIE_LIST} component={StyledMovieResults} />
+            <Route path={PATHS.MOVIE_DETAILS} component={MovieDetails} />
 
-              {/* Private routes */}
-              <PrivateRoute
-                exact
-                path={PATHS.COLLECTION_LIST}
-                component={CollectionList}
-              />
-              <PrivateRoute
-                exact
-                path={PATHS.COLLECTION_DETAILS}
-                component={CollectionDetails}
-              />
-            </Switch>
+            {/* Private routes */}
+            <PrivateRoute
+              exact
+              path={PATHS.COLLECTION_LIST}
+              component={CollectionList}
+            />
+            <PrivateRoute
+              exact
+              path={PATHS.COLLECTION_DETAILS}
+              component={CollectionDetails}
+            />
           </ViewContainer>
         </StyledFlexContainer>
       </Router>

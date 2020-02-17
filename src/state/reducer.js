@@ -1,87 +1,93 @@
 import {
   VERIFICATION_REQUESTED,
-  SIGNUP_REQUESTED,
-  SIGNUP_SUCCEED,
-  SIGNUP_FAILED,
+  VERIFICATION_FAILED,
+  // SIGNUP_REQUESTED,
+  // SIGNUP_SUCCEED,
+  // SIGNUP_FAILED,
   SIGNIN_REQUESTED,
   SIGNIN_SUCCEED,
   SIGNIN_FAILED,
   SIGNOUT_REQUESTED,
   SIGNOUT_SUCCEED,
-  SIGNOUT_FAILED,
+  SIGNOUT_FAILED
 } from "./constants"
 
-export const initialState = {
+const defaultState = {
   isVerifying: false,
   isAuthenticating: false,
   isAuthenticated: false,
   isAuthError: false,
-  user: {},
-  isAdmin: false
+  username: "",
+  sessionId: ""
 }
 
-const isAdmin = user => user.role === 'admin'
+export const initialState = {
+  ...defaultState,
+  isVerifying: true
+}
 
-export const reducer = (state = initialState, action) => {  
-  console.log(action.type)
-  switch (action.type) {
+export const reducer = (state = initialState, { type, payload }) => {
+  console.log(type)
+  switch (type) {
     case VERIFICATION_REQUESTED:
       return {
-        ...state,
+        ...defaultState,
         isVerifying: true
       }
-    case SIGNUP_REQUESTED:
+    case VERIFICATION_FAILED:
       return {
-        ...state,
-        isAuthenticating: true
+        ...defaultState
       }
-    case SIGNUP_SUCCEED:
-      return {
-        ...state,
-        isAuthenticating: false,
-        isAuthenticated: true,
-        user: action.user,
-        isAdmin: isAdmin(action.user)
-      }
-    case SIGNUP_FAILED:
-      return {
-        ...state,
-        isAuthenticating: false,
-        isAuthenticated: false,
-        isAuthError: true
-      }
+    // case SIGNUP_REQUESTED:
+    //   return {
+    //     ...state,
+    //     isAuthenticating: true
+    //   }
+    // case SIGNUP_SUCCEED:
+    //   return {
+    //     ...state,
+    //     isAuthenticating: false,
+    //     isAuthenticated: true,
+    //     user: action.user,
+    //     isAdmin: isAdmin(action.user)
+    //   }
+    // case SIGNUP_FAILED:
+    //   return {
+    //     ...state,
+    //     isAuthenticating: false,
+    //     isAuthenticated: false,
+    //     isAuthError: true
+    //   }
     case SIGNIN_REQUESTED:
       return {
-        ...state,
+        ...defaultState,
         isAuthenticating: true
       }
     case SIGNIN_SUCCEED:
       return {
-        ...state,
+        isVerifying: false,
         isAuthenticating: false,
         isAuthenticated: true,
-        user: action.user,
-        isAdmin: isAdmin(action.user)
+        username: payload.username,
+        sessionId: payload.sessionId
       }
     case SIGNIN_FAILED:
       return {
-        ...state,
-        isAuthenticating: false,
-        isAuthenticated: false,
+        ...defaultState,
         isAuthError: true
-      }    
+      }
+
     case SIGNOUT_REQUESTED:
       return {
         ...state,
         isAuthenticating: true
-      };
+      }
     case SIGNOUT_SUCCEED:
       return {
         ...state,
         isAuthenticating: false,
         isAuthenticated: false,
-        user: {},
-        isAdmin: false
+        username: {}
       }
     case SIGNOUT_FAILED:
       return {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
-import { getCollectionById, updateCollectionName } from "apis/collections"
+// import { getCollectionById, updateCollectionName } from "apis/collections"
 import MovieCard from "components/MovieCard/MovieCard"
 
 const StyledMoviesContainer = styled.div`
@@ -23,10 +23,10 @@ const CollectionDetails = () => {
 
   useEffect(() => {
     const fetchCollection = async () => {
-      const { name, movieIds, movies } = await getCollectionById(id)
-      setName(name)
-      setMovies(movies)
-      setMovieIds(movieIds)
+      // const { name, movieIds, movies } = await getCollectionById(id)
+      // setName(name)
+      // setMovies(movies)
+      // setMovieIds(movieIds)
     }
     fetchCollection()
   }, [id])
@@ -37,12 +37,12 @@ const CollectionDetails = () => {
 
   const handleKeyPress = event => {
     if (event.charCode === 13) {
-      updateCollectionName(id, name)
-        .then(() => {
-          setName(name)
-          setIsEditing(false)
-        })
-        .catch(error => console.log(error))
+      // updateCollectionName(id, name)
+      //   .then(() => {
+      //     setName(name)
+      //     setIsEditing(false)
+      //   })
+      //   .catch(error => console.log(error))
     }
   }
 

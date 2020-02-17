@@ -29,8 +29,8 @@ const StyledSocialMediaLinks = styled(SocialMediaLinks)`
 `
 
 const MovieSummary = ({ id }) => {
-  const movie = useMovie(id)
-  const externalIds = useExternalIds(id)
+  const [movie] = useMovie(id)
+  const [externalIds] = useExternalIds(id)
 
   return (
     movie && (

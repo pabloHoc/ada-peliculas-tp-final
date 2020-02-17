@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
-import { getCollections, createCollection } from "apis/collections"
+import { addList, useLists } from "apis/movieDb"
+import { useAuth } from "utils/hooks/useAuth"
+// import { getCollections, createCollection } from "apis/collections"
 
 const CollectionWrapper = styled.article``
 
@@ -19,24 +21,23 @@ const AddCollectionButton = styled.button``
 
 const CollectionList = () => {
   const [name, setName] = useState("")
-  const [collections, setCollections] = useState([])
+  // const [collections, setCollections] = useState([])
+  const { username, sessionId } = useAuth()
+  const [collections, updateCollections] = useLists(username, sessionId)
 
   const updateList = async () => {
-    const collections = await getCollections()
-    setCollections(collections)
+    // const collections = await getCollections()
+    // setCollections(collections)
   }
 
   useEffect(() => {
-    const fetchData = () => {
-      updateList()
-    }
-    fetchData()
-  }, [])
+    updateCollections()
+  }, [updateCollections])
 
   const handleChange = event => setName(event.target.value)
   const handleAddCollection = async () => {
-    await createCollection({ name })
-    updateList()
+    await addList(name, sessionId)
+    updateCollections()
   }
 
   return (
@@ -48,11 +49,11 @@ const CollectionList = () => {
         </AddCollectionButton>
       </Flex>
       <h1>Collections</h1>
-      {collections.map(collection => (
+      {collections?.results.map(collection => (
         <CollectionWrapper key={collection.id}>
           <CollectionLink to={`/collections/${collection.id}`}>
             <h2>{collection.name}</h2>
-            <p>{collection.movies.length} films</p>
+            <p>{collection.item_count} films</p>
           </CollectionLink>
         </CollectionWrapper>
       ))}

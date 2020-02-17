@@ -27,7 +27,7 @@ const SignOutIcon = styled(SignOut)`
 `
 
 const Header = () => {
-  const { isAuthenticated, signOutUser, user } = useAuth()
+  const { isAuthenticated, signOutUser, username } = useAuth()
   const isSignIn = useRouteMatch(PATHS.SIGN_IN)
   const isSignUp = useRouteMatch(PATHS.SIGN_UP)
   const isAuth = isSignIn || isSignUp
@@ -38,7 +38,7 @@ const Header = () => {
         {!isAuth && <SearchBar />}
         {isAuthenticated && (
           <Flex alignItems="center">
-            <UserGreeting>Hola {user.firstname}</UserGreeting>
+            <UserGreeting>Hola {username}</UserGreeting>
             <SignOutIcon onClick={signOutUser} />
           </Flex>
         )}

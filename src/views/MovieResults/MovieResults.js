@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import styled from "styled-components"
+import { useAuth } from "utils/hooks/useAuth"
 import useQuery from "utils/hooks/useQuery"
 import MovieList from "components/MovieList/MovieList"
 import { useHistory } from "react-router-dom"
@@ -24,10 +25,12 @@ const MovieResults = ({ className }) => {
   const [movies, setMovies] = useState([])
   const history = useHistory()
   const page = Number(pageStr)
-
+  const { isVerifying } = useAuth()
   // TODO: ADD debounce
 
   useEffect(() => {
+    if (isVerifying) return
+
     const getUrl = (isSearch, keyword, page) =>
       `https://api.themoviedb.org/3${
         isSearch ? `/search/movie?query=${keyword}&` : `/movie/${keyword}?`
@@ -42,7 +45,7 @@ const MovieResults = ({ className }) => {
           : [...prevMovies, ...response.data.results]
       )
     })
-  }, [category, page, query])
+  }, [category, page, query, isVerifying])
 
   const handleClick = () => {
     const url = `${

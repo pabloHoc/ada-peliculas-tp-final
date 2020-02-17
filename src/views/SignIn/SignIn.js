@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Redirect } from "react-router-dom"
 import { useAuth } from "utils/hooks/useAuth"
 import PATHS from "constants/paths"
+import { authenticate } from "apis/movieDb"
 
 import styled from "styled-components"
 
@@ -18,20 +19,27 @@ const Input = styled.input``
 const Button = styled.button``
 
 const SignIn = () => {
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const { isAuthenticated, isAuthenticating, signInUser } = useAuth()
+  const { isAuthenticated, isAuthenticating, signIn } = useAuth()
 
-  const handleEmail = event => setEmail(event.target.value)
+  const handleUsername = event => setUsername(event.target.value)
   const handlePassword = event => setPassword(event.target.value)
+
+  const handleSignInUser = () => signIn(username, password)
 
   return isAuthenticated ? (
     <Redirect to={PATHS.HOME} />
   ) : (
     <Flex>
       <FormControl>
-        <FormLabel htmlFor="email">Email address</FormLabel>
-        <Input type="email" id="email" value={email} onChange={handleEmail} />
+        <FormLabel htmlFor="username">Username</FormLabel>
+        <Input
+          type="text"
+          id="username"
+          value={username}
+          onChange={handleUsername}
+        />
       </FormControl>
       <FormControl>
         <FormLabel htmlFor="password">Password</FormLabel>
@@ -42,10 +50,7 @@ const SignIn = () => {
           onChange={handlePassword}
         />
       </FormControl>
-      <Button
-        isLoading={isAuthenticating}
-        onClick={() => signInUser(email, password)}
-      >
+      <Button isLoading={isAuthenticating} onClick={handleSignInUser}>
         Login
       </Button>
     </Flex>

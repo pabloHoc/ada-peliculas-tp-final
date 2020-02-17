@@ -1,13 +1,19 @@
 import React, { createContext, useReducer, useEffect } from "react"
 import { reducer, initialState } from "state/reducer"
-import { useFirebaseAuth } from "utils/hooks/useFirebaseAuth"
-
+import { useMovieDbAuth } from "utils/hooks/useMovieDbAuth"
 const AuthContext = createContext(initialState)
 
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const actions = useFirebaseAuth(state, dispatch)
+  const actions = useMovieDbAuth(state, dispatch)
+
   useEffect(() => console.log({ newState: state }), [state])
+
+  // TODO: DEPENDENCY ARRAY
+
+  useEffect(() => {
+    actions.verifyLogin()
+  }, [])
 
   return (
     <AuthContext.Provider value={{ ...state, ...actions }}>
