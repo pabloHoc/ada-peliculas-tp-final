@@ -1,9 +1,9 @@
 import React from "react"
 import styled from "styled-components"
 import { Flex } from "components/Common/Common"
-import MovieCard from "components/MovieCard/MovieCard"
+import Card from "components/Card/Card"
 
-const StyledMovieCard = styled(MovieCard)`
+const StyledCard = styled(Card)`
   width: calc(20% - 20px);
   margin: 10px;
 
@@ -24,17 +24,18 @@ const StyledMovieCard = styled(MovieCard)`
   }
 `
 
-const MovieList = ({ movies = [] }) => (
+const MediaList = ({ items = [], media }) => (
   <Flex>
-    {movies.map(movie => (
-      <StyledMovieCard
-        key={movie.id}
-        id={movie.id}
-        img={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
-        title={movie.title}
+    {items.map(item => (
+      <StyledCard
+        key={item.id}
+        id={item.id}
+        img={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
+        title={item.title}
+        media={media}
       />
     ))}
   </Flex>
 )
 
-export default MovieList
+export default MediaList

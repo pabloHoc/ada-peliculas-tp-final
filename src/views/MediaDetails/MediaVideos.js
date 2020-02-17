@@ -20,7 +20,7 @@ const Video = styled.iframe`
   width: 100%;
 `
 
-const MovieVideos = ({ videos }) => (
+const MediaVideos = ({ videos }) => (
   <Flex>
     {videos.map(video => (
       <VideoContainer key={video.id}>
@@ -38,4 +38,4 @@ const MovieVideos = ({ videos }) => (
   </Flex>
 )
 
-export default MovieVideos
+export default MediaVideos

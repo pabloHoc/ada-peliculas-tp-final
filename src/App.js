@@ -6,8 +6,8 @@ import Header from "components/Header/Header"
 import SidebarNav from "components/SidebarNav/SidebarNav"
 import { Flex } from "components/Common/Common"
 
-import MovieResults from "views/MovieResults/MovieResults"
-import MovieDetails from "views/MovieDetails/MovieDetails"
+import MediaResults from "views/MediaResults/MediaResults"
+import MediaDetails from "views/MediaDetails/MediaDetails"
 
 import PATHS from "constants/paths"
 
@@ -20,7 +20,7 @@ const ViewContainer = styled(Flex)`
   background-color: ${({ theme }) => theme.colors.gray[900]};
 `
 
-const StyledMovieResults = styled(MovieResults)`
+const StyledMediaResults = styled(MediaResults)`
   padding: 20px;
 `
 
@@ -61,14 +61,11 @@ const App = () => (
       <StyledFlexContainer alignItems="stretch" wrap="no-wrap">
         <SidebarNav />
         <ViewContainer>
-          <Route exact path={PATHS.HOME} component={StyledMovieResults} />
-          {/* Auth routes */}
-
-          {/* Public routes */}
-          <Route exact path={PATHS.MOVIE_LIST} component={StyledMovieResults} />
-          <Route path={PATHS.MOVIE_DETAILS} component={MovieDetails} />
-
-          {/* Private routes */}
+          <Switch>
+            <Route exact path={PATHS.HOME} component={StyledMediaResults} />
+            <Route exact path={PATHS.SEARCH} component={StyledMediaResults} />
+            <Route exact path={PATHS.DETAILS} component={MediaDetails} />
+          </Switch>
         </ViewContainer>
       </StyledFlexContainer>
     </Router>
