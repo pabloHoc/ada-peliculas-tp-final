@@ -1,9 +1,4 @@
-import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-// import { getCollections, addMovie, removeMovie } from "apis/collections"
-import { useLists, addMovieToList } from "apis/movieDb"
-import { useAuth } from "utils/hooks/useAuth"
-import CollectionTag from "./CollectionTag"
 import { Flex } from "components/Common/Common"
 
 const CollectionsDropwdown = styled.select`
@@ -38,62 +33,3 @@ const DropdownWrapper = styled.div`
     box-sizing: border-box;
   }
 `
-
-const MovieCollections = ({ movieData }) => {
-  const { id, original_title, poster_path } = movieData
-  const [currentCollections, setCurrentCollections] = useState([])
-
-  const { username, sessionId } = useAuth()
-  const [collections, updateCollections] = useLists(username, sessionId)
-
-  const updateCollectionList = async () => {
-    // const collections = await getCollections()
-    // setCollections(collections)
-  }
-
-  useEffect(() => {
-    updateCollections()
-  }, [updateCollections])
-
-  // useEffect(() => {
-  //   const currentCollections = collections.filter(collection =>
-  //     collection.movieIds.includes(id)
-  //   )
-  //   // setCurrentCollections(currentCollections)
-  // }, [collections, id])
-
-  const handleOnChange = async event => {
-    await addMovieToList(id, event.target.value, sessionId)
-  }
-
-  const handleRemoveFromCollection = async collectionId => {
-    // await removeMovie(collectionId, id)
-    // updateCollectionList()
-  }
-
-  return (
-    <Flex>
-      <Flex alignItems="center">
-        <DropdownWrapper>
-          <CollectionsDropwdown onChange={handleOnChange}>
-            <option>Agregar a colección</option>
-            {collections?.results.map(collection => (
-              <option key={collection.id} value={collection.id}>
-                {collection.name}
-              </option>
-            ))}
-          </CollectionsDropwdown>
-        </DropdownWrapper>
-        {currentCollections.map(collection => (
-          <CollectionTag
-            key={collection.id}
-            label={collection.name}
-            onDelete={() => handleRemoveFromCollection(collection.id)}
-          />
-        ))}
-      </Flex>
-    </Flex>
-  )
-}
-
-export default MovieCollections

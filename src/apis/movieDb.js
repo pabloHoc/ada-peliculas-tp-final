@@ -93,8 +93,6 @@ const addMovieToList = async (movieId, listId, sessionId) => {
 const useLists = (username, sessionId, page = 1) =>
   useGet(`/account/${username}/lists`, `session_id=${sessionId}&page=${page}`)
 
-const getMovieLists = (movieId, sessionId)
-
 export {
   useMovie,
   useCast,

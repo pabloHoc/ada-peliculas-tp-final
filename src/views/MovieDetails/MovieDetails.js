@@ -7,7 +7,6 @@ import MovieList from "components/MovieList/MovieList"
 import MovieBackdrop from "./MovieBackdrop"
 import MovieSummary from "./MovieSummary"
 import MovieVideos from "./MovieVideos"
-import MovieCollections from "./MovieCollections"
 
 const Container = styled.div`
   flex-grow: 1;
@@ -67,7 +66,6 @@ const MovieDetails = () => {
     <>
       <MovieBackdrop src={movie.backdrop_path} />
       <Container>
-        <MovieCollections movieData={movie} />
         <NavLinkContainer>
           <StyledNavLink exact to={url} activeClassName="active">
             INFORMACION

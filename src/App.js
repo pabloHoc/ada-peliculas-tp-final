@@ -1,9 +1,6 @@
 import React from "react"
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import PrivateRoute from "components/PrivateRoute/PrivateRoute"
-
-import { AuthProvider } from "contexts/AuthContext"
 
 import Header from "components/Header/Header"
 import SidebarNav from "components/SidebarNav/SidebarNav"
@@ -11,10 +8,6 @@ import { Flex } from "components/Common/Common"
 
 import MovieResults from "views/MovieResults/MovieResults"
 import MovieDetails from "views/MovieDetails/MovieDetails"
-import CollectionList from "views/CollectionList/CollectionList"
-import CollectionDetails from "views/CollectionDetails/CollectionDetails"
-import SignIn from "views/SignIn/SignIn"
-import SignUp from "views/SignUp/SignUp"
 
 import PATHS from "constants/paths"
 
@@ -63,36 +56,22 @@ const GlobalStyle = createGlobalStyle`
 const App = () => (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
-    <AuthProvider>
-      <Router>
-        <Header />
-        <StyledFlexContainer alignItems="stretch" wrap="no-wrap">
-          <SidebarNav />
-          <ViewContainer>
-            <Route exact path={PATHS.HOME} component={StyledMovieResults} />
-            {/* Auth routes */}
-            <Route exact path={PATHS.SIGN_IN} component={SignIn} />
-            <Route exact path={PATHS.SIGN_UP} component={SignUp} />
+    <Router>
+      <Header />
+      <StyledFlexContainer alignItems="stretch" wrap="no-wrap">
+        <SidebarNav />
+        <ViewContainer>
+          <Route exact path={PATHS.HOME} component={StyledMovieResults} />
+          {/* Auth routes */}
 
-            {/* Public routes */}
-            <Route exact path={PATHS.MOVIE_LIST} component={StyledMovieResults} />
-            <Route path={PATHS.MOVIE_DETAILS} component={MovieDetails} />
+          {/* Public routes */}
+          <Route exact path={PATHS.MOVIE_LIST} component={StyledMovieResults} />
+          <Route path={PATHS.MOVIE_DETAILS} component={MovieDetails} />
 
-            {/* Private routes */}
-            <PrivateRoute
-              exact
-              path={PATHS.COLLECTION_LIST}
-              component={CollectionList}
-            />
-            <PrivateRoute
-              exact
-              path={PATHS.COLLECTION_DETAILS}
-              component={CollectionDetails}
-            />
-          </ViewContainer>
-        </StyledFlexContainer>
-      </Router>
-    </AuthProvider>
+          {/* Private routes */}
+        </ViewContainer>
+      </StyledFlexContainer>
+    </Router>
   </ThemeProvider>
 )
 
