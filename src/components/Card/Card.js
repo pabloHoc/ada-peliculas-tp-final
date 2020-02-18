@@ -7,7 +7,7 @@ const Image = styled.img`
 `
 
 const Card = ({ className, id, img, title, media }) => (
-  <Link to={`/${media}/${id}`} className={className}>
+  <Link to={`/${media}/${id}/info`} className={className}>
     <Image src={img} alt={`${title} poster`} />
     <p>{title}</p>
   </Link>

@@ -31,8 +31,8 @@ const MediaList = ({ items = [], media }) => (
         key={item.id}
         id={item.id}
         img={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
-        title={item.title}
-        media={media}
+        title={item.title || item.name}
+        media={media === "multi" ? item.media_type : media}
       />
     ))}
   </Flex>

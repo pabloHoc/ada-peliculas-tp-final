@@ -8,10 +8,11 @@ const getApiUrl = endpoint => `${URL_BASE}${endpoint}?api_key=${API_KEY}`
 const useMedia = (id, media, subresource = "") =>
   useGet(getApiUrl(`/${media}/${id}${subresource ? `/${subresource}` : ""}`))
 
-const useMediaSearch = (media, keyword, isSearch = false, page = 1) => {
-  const endpoint = isSearch
-    ? `${getApiUrl(`/search/${media}`)}&query=${keyword}&page=${page}`
-    : `${getApiUrl(`/${media}/${keyword}`)}&page=${page}`
+const useMediaSearch = (media, keyword, page = 1) => {
+  const endpoint =
+    media === "multi"
+      ? `${getApiUrl(`/search/multi`)}&query=${keyword}&page=${page}`
+      : `${getApiUrl(`/${media}/${keyword}`)}&page=${page}`
 
   return useGet(endpoint)
 }

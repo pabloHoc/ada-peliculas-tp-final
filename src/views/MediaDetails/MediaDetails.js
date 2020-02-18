@@ -8,6 +8,7 @@ import MediaList from "components/MediaList/MediaList"
 import MediaBackdrop from "./MediaBackdrop"
 import MediaSummary from "./MediaSummary"
 import MediaVideos from "./MediaVideos"
+import TvShowSeasons from "./TvShowSeasons"
 
 const Container = styled.div`
   flex-grow: 1;
@@ -34,8 +35,13 @@ const StyledNavLink = styled(NavLink)`
 
 const MediaDetails = () => {
   const { media, mediaId } = useParams()
-  const [mediaData = []] = useMedia(mediaId, media)
-  const [similar = []] = useMedia(mediaId, media, "similar")
+  const isTv = media === "tv"
+  const [mediaData = {}] = useMedia(mediaId, media)
+  const [similar = []] = useMedia(
+    mediaId,
+    media,
+    isTv ? "recommendations" : "similar"
+  )
   const [videos = []] = useMedia(mediaId, media, "videos")
   const [externalIds = []] = useMedia(mediaId, media, "external_ids")
   const { url, path } = useRouteMatch()
@@ -45,9 +51,14 @@ const MediaDetails = () => {
       <MediaBackdrop src={mediaData?.backdrop_path} />
       <Container>
         <NavLinkContainer>
-          <StyledNavLink exact to={url} activeClassName="active">
+          <StyledNavLink exact to={`${url}/info`} activeClassName="active">
             INFORMACION
           </StyledNavLink>
+          {isTv && (
+            <StyledNavLink to={`${url}/seasons/1`} activeClassName="active">
+              TEMPORADAS
+            </StyledNavLink>
+          )}
           <StyledNavLink to={`${url}/videos`} activeClassName="active">
             VIDEOS
           </StyledNavLink>
@@ -55,19 +66,17 @@ const MediaDetails = () => {
             SIMILARES
           </StyledNavLink>
         </NavLinkContainer>
-        <Route exact path={`${path}/`}>
-          <MediaSummary
-            poster={mediaData?.poster_path}
-            title={mediaData?.original_title}
-            overview={mediaData?.overview}
-            externalIds={externalIds}
-          />
+        <Route exact path={`${url}/info`}>
+          <MediaSummary data={mediaData} media={media} externalIds={externalIds} />
         </Route>
-        <Route exact path={`${path}/videos`}>
+        <Route exact path={`${url}/seasons/:season`}>
+          <TvShowSeasons tvShowId={mediaId} seasons={mediaData?.seasons} />
+        </Route>
+        <Route exact path={`${url}/videos`}>
           <MediaVideos videos={videos?.results} />
         </Route>
-        <Route exact path={`${path}/similar`}>
-          <MediaList movies={similar?.results} />
+        <Route exact path={`${url}/similar`}>
+          <MediaList items={similar?.results} media={media} />
         </Route>
       </Container>
     </>

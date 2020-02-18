@@ -6,6 +6,9 @@ import Header from "components/Header/Header"
 import SidebarNav from "components/SidebarNav/SidebarNav"
 import { Flex } from "components/Common/Common"
 
+import Home from "views/Home/Home"
+import Movies from "views/Movies/Movies"
+import TvShows from "views/TvShows/TvShows"
 import MediaResults from "views/MediaResults/MediaResults"
 import MediaDetails from "views/MediaDetails/MediaDetails"
 
@@ -62,9 +65,11 @@ const App = () => (
         <SidebarNav />
         <ViewContainer>
           <Switch>
-            <Route exact path={PATHS.HOME} component={StyledMediaResults} />
+            <Route exact path={PATHS.HOME} component={Home} />
+            <Route exact path={PATHS.MOVIES} component={Movies} />
+            <Route exact path={PATHS.TV_SHOWS} component={TvShows} />
             <Route exact path={PATHS.SEARCH} component={StyledMediaResults} />
-            <Route exact path={PATHS.DETAILS} component={MediaDetails} />
+            <Route path={PATHS.DETAILS} component={MediaDetails} />
           </Switch>
         </ViewContainer>
       </StyledFlexContainer>

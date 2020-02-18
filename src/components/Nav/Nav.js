@@ -48,7 +48,7 @@ const Nav = ({ className }) => (
       </Link>
     </ListItem>
     <ListItem>
-      <Link to={PATHS.POPULAR_MOVIES}>
+      <Link to={PATHS.MOVIES}>
         <LinkContainer>
           <MovieIcon />
           <LinkLabel>Películas</LinkLabel>
@@ -56,7 +56,7 @@ const Nav = ({ className }) => (
       </Link>
     </ListItem>
     <ListItem>
-      <Link to={PATHS.POPULAR_TV_SHOWS}>
+      <Link to={PATHS.TV_SHOWS}>
         <LinkContainer>
           <TvShowIcon />
           <LinkLabel>Series</LinkLabel>
