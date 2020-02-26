@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 
-const BackdropContainer = styled.div`
+const BannerContainer = styled.div`
   width: 100%;
   height: 600px;
   display: flex;
@@ -10,7 +10,7 @@ const BackdropContainer = styled.div`
   background-color: #000;
 `
 
-const BackdropOverlay = styled.div`
+const BannerOverlay = styled.div`
   width: 70%;
   height: 100%;
   position: absolute;
@@ -19,7 +19,7 @@ const BackdropOverlay = styled.div`
   background: linear-gradient(90deg, #000 0, transparent 50%, transparent);
 `
 
-const BackdropImage = styled.div`
+const BannerImage = styled.div`
   width: 70%;
   height: 100%;
   background-image: url("${props => props.src}");
@@ -27,11 +27,11 @@ const BackdropImage = styled.div`
   background-position: center;
 `
 
-const MovieBackdrop = ({ src }) => (
-  <BackdropContainer>
-    <BackdropOverlay />
-    <BackdropImage src={`https://image.tmdb.org/t/p/original${src}`} />
-  </BackdropContainer>
+const Banner = ({ src }) => (
+  <BannerContainer>
+    <BannerOverlay />
+    <BannerImage src={`https://image.tmdb.org/t/p/original${src}`} />
+  </BannerContainer>
 )
 
-export default MovieBackdrop
+export default Banner

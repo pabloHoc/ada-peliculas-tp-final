@@ -24,14 +24,15 @@ export const Title = styled.h1`
 `
 
 export const Select = styled.select`
+  width: 100%;
   -webkit-appearance: none;
   border-radius: 6px;
   font-size: 16px;
   font-weight: 300;
   line-height: 30px;
   padding: 3px 31px 3px 16px;
-  color: ${({ theme }) => theme.colors.gray[100]};
-  border: 1px solid ${({ theme }) => theme.colors.gray[600]};
+  color: ${({ theme }) => theme.colors.text};
+  border: 1px solid ${({ theme }) => theme.colors.text};
   background-color: ${({ theme }) => theme.colors.dark};
   cursor: pointer;
   position: relative;
@@ -50,8 +51,8 @@ export const SelectWrapper = styled.div`
     top: 50%;
     right: 14px;
     transform: translateY(-50%) rotateZ(-135deg);
-    border-top: 2px solid ${({ theme }) => theme.colors.gray[100]};
-    border-left: 2px solid ${({ theme }) => theme.colors.gray[100]};
+    border-top: 2px solid ${({ theme }) => theme.colors.text};
+    border-left: 2px solid ${({ theme }) => theme.colors.text};
     box-sizing: border-box;
   }
 `

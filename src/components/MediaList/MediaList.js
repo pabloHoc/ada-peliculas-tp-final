@@ -28,10 +28,12 @@ const MediaList = ({ items = [], media }) => (
   <Flex>
     {items.map(item => (
       <StyledCard
-        key={item.id}
+        key={item.credit_id || item.id}
         id={item.id}
-        img={`https://image.tmdb.org/t/p/w185${item.poster_path}`}
+        img={`https://image.tmdb.org/t/p/w370_and_h556_bestv2${item.poster_path ||
+          item.profile_path}`}
         title={item.title || item.name}
+        subtitle={item.character}
         media={media === "multi" ? item.media_type : media}
       />
     ))}

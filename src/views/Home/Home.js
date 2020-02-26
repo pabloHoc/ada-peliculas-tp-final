@@ -3,8 +3,8 @@ import MediaCategoryPreview from "components/MediaCategoryPreview/MediaCategoryP
 
 const Home = () => (
   <>
-    <MediaCategoryPreview media="movie" category="popular" />
-    <MediaCategoryPreview media="tv" category="popular" />
+    <MediaCategoryPreview media="movie" category="trending" />
+    <MediaCategoryPreview media="tv" category="trending" />
   </>
 )
 

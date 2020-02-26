@@ -20,7 +20,7 @@ const Video = styled.iframe`
   width: 100%;
 `
 
-const MediaVideos = ({ videos }) => (
+const MediaVideos = ({ videos = [] }) => (
   <Flex>
     {videos.map(video => (
       <VideoContainer key={video.id}>

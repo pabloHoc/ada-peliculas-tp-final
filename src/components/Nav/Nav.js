@@ -8,29 +8,23 @@ import { Home } from "styled-icons/feather/Home"
 import { Video } from "styled-icons/feather/Video"
 import { Tv } from "styled-icons/feather/Tv"
 
-// TODO: make NavLinks
-// TODO: make Header including Nav with button and user name
-
 const HomeIcon = styled(Home)`
   width: 30px;
-  margin: 10px 0;
 `
 
 const MovieIcon = styled(Video)`
-  width: 30px;
-  margin: 10px 0;
+  width: 34px;
+  margin-top: 4px;
 `
 
 const TvShowIcon = styled(Tv)`
   width: 30px;
-  margin: 10px 0;
 `
 
 const LinkContainer = styled(Flex)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
 `
 
 const LinkLabel = styled.p`
@@ -41,26 +35,26 @@ const Nav = ({ className }) => (
   <List className={className}>
     <ListItem>
       <Link to={PATHS.HOME}>
-        <LinkContainer>
-          <HomeIcon />
-          <LinkLabel>Inicio</LinkLabel>
-        </LinkContainer>
+        {/* <LinkContainer> */}
+        <HomeIcon />
+        {/* <LinkLabel>Inicio</LinkLabel> */}
+        {/* </LinkContainer> */}
       </Link>
     </ListItem>
     <ListItem>
       <Link to={PATHS.MOVIES}>
-        <LinkContainer>
-          <MovieIcon />
-          <LinkLabel>Películas</LinkLabel>
-        </LinkContainer>
+        {/* <LinkContainer> */}
+        <MovieIcon />
+        {/* <LinkLabel>Películas</LinkLabel> */}
+        {/* </LinkContainer> */}
       </Link>
     </ListItem>
     <ListItem>
       <Link to={PATHS.TV_SHOWS}>
-        <LinkContainer>
-          <TvShowIcon />
-          <LinkLabel>Series</LinkLabel>
-        </LinkContainer>
+        {/* <LinkContainer> */}
+        <TvShowIcon />
+        {/* <LinkLabel>Series</LinkLabel> */}
+        {/* </LinkContainer> */}
       </Link>
     </ListItem>
   </List>
