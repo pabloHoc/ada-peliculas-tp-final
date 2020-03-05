@@ -1,20 +1,25 @@
 import React from "react"
 import styled from "styled-components"
 import ExternalLinks from "components/ExternalLinks/ExternalLinks"
-
-const FlexContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`
+import { Flex, Text } from "components/Common/Common"
 
 const InfoContainer = styled.div`
   flex: 1;
   max-width: 600px;
   padding: 0 30px;
+
+  @media (max-width: 500px) {
+    padding: 0;
+  }
 `
 
 const PersonPicture = styled.img`
   width: 250px;
+
+  @media (max-width: 500px) {
+    width: 100%;
+    margin-bottom: 30px;
+  }
 `
 
 const PersonName = styled.h1`
@@ -30,14 +35,14 @@ const Details = ({ data, externalIds }) => {
   const { imdb_id, facebook_id, instagram_id, twitter_id } = externalIds
 
   return (
-    <FlexContainer>
+    <Flex>
       <PersonPicture
         src={`https://image.tmdb.org/t/p/w342${profile_path}`}
         alt={`Imagen de ${name}`}
       />
       <InfoContainer>
         <PersonName>{name}</PersonName>
-        <p>{biography}</p>
+        <Text>{biography}</Text>
         {externalIds && (
           <StyledExternalLinks
             linkIds={{
@@ -50,7 +55,7 @@ const Details = ({ data, externalIds }) => {
           />
         )}
       </InfoContainer>
-    </FlexContainer>
+    </Flex>
   )
 }
 

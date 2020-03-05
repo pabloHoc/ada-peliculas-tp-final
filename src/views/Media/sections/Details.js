@@ -1,25 +1,37 @@
 import React from "react"
+
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+
+import { useResponsive } from "utils/hooks/useResponsive"
+
+import TvShowSummary from "./TvShowSummary"
+import MovieSummary from "./MovieSummary"
+
 import ExternalLinks from "components/ExternalLinks/ExternalLinks"
 import Rating from "components/Rating/Rating"
-
-const FlexContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`
+import { Flex, Title, Text } from "components/Common/Common"
 
 const InfoContainer = styled.div`
   flex: 1;
   max-width: 600px;
+  width: 100%;
   padding: 0 30px;
+
+  @media (max-width: 650px) {
+    padding: 0;
+    margin-top: 40px;
+  }
 `
 
 const MediaPoster = styled.img`
   width: 250px;
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
 `
 
-const MediaTitle = styled.h1`
+const StyledTitle = styled(Title)`
   margin-top: 0;
 `
 
@@ -27,83 +39,27 @@ const StyledExternalLinks = styled(ExternalLinks)`
   margin-top: 50px;
 `
 
-const currencyFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD"
-})
-
-const formatCurrency = value => currencyFormatter.format(value).slice(0, -3)
+const Overview = styled(Text)`
+  margin-top: 20px;
+`
 
 const Details = ({ data, media, externalIds }) => {
-  const {
-    poster_path,
-    name,
-    title,
-    overview,
-    genres = [],
-    number_of_episodes,
-    number_of_seasons,
-    production_companies = [],
-    homepage,
-    runtime,
-    episode_run_time = [],
-    budget,
-    revenue,
-    vote_average,
-    release_date
-  } = data
-
+  const breakpoint = useResponsive()
+  const { poster_path, name, title, overview, homepage, vote_average } = data
   const { imdb_id, facebook_id, instagram_id, twitter_id } = externalIds
-
   const isTvShow = media === "tv"
 
   return (
-    <FlexContainer>
+    <Flex flexDirection={!["XS", "SM"].includes(breakpoint) ? " row" : "column"}>
       <MediaPoster
         src={`https://image.tmdb.org/t/p/w342${poster_path}`}
         alt={`Poster de ${name || title}`}
       />
       <InfoContainer>
-        <MediaTitle>{title}</MediaTitle>
+        <StyledTitle as="h2">{name || title}</StyledTitle>
         <Rating score={vote_average / 2} />
-        <p>{overview}</p>
-        {isTvShow ? (
-          <>
-            <p>{`Temporadas: ${number_of_seasons}`}</p>
-            <p>{`Episodios:  ${number_of_episodes}`}</p>
-            <p>{`Duración:   ${episode_run_time[0]} min.`}</p>
-            <p>
-              Géneros:
-              {genres.map(genre => (
-                <Link to={`/${media}/${genre.name}/${genre.id}/page/1`}>
-                  {genre.name}
-                </Link>
-              ))}
-            </p>
-            <p>
-              {`Producción: ${production_companies
-                .map(company => company.name)
-                .join(", ")}`}
-            </p>
-          </>
-        ) : (
-          <>
-            <p>{`Duración:     ${runtime} min.`}</p>
-            <p>
-              Géneros:
-              {genres.map(genre => (
-                <Link to={`/${media}/${genre.name}/${genre.id}/page/1`}>
-                  {genre.name}
-                </Link>
-              ))}
-            </p>
-            <p>{`Presupuesto:  ${formatCurrency(budget)}`}</p>
-            <p>{`Recaudación:  ${formatCurrency(revenue)}`}</p>
-            <p>{`Producción:   ${production_companies
-              .map(company => company.name)
-              .join(", ")}`}</p>
-          </>
-        )}
+        <Overview>{overview}</Overview>
+        {isTvShow ? <TvShowSummary data={data} /> : <MovieSummary data={data} />}
         {externalIds && (
           <StyledExternalLinks
             linkIds={{
@@ -116,7 +72,7 @@ const Details = ({ data, media, externalIds }) => {
           />
         )}
       </InfoContainer>
-    </FlexContainer>
+    </Flex>
   )
 }
 

@@ -1,61 +1,57 @@
 import React from "react"
-import { Link } from "react-router-dom"
+// Routing
+import { NavLink } from "react-router-dom"
 import PATHS from "constants/paths"
-
-import styled from "styled-components"
-import { List, ListItem, Flex } from "components/Common/Common"
+// Styled
+import styled, { css } from "styled-components"
+// Components
+import { List, ListItem } from "components/Common/Common"
 import { Home } from "styled-icons/feather/Home"
 import { Video } from "styled-icons/feather/Video"
 import { Tv } from "styled-icons/feather/Tv"
 
+const BaseIcon = css`
+  color: ${({ theme }) => theme.colors.text};
+`
+
 const HomeIcon = styled(Home)`
+  ${BaseIcon}
   width: 30px;
 `
 
 const MovieIcon = styled(Video)`
+  ${BaseIcon}
   width: 34px;
   margin-top: 4px;
 `
 
 const TvShowIcon = styled(Tv)`
+  ${BaseIcon}
   width: 30px;
 `
 
-const LinkContainer = styled(Flex)`
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
-const LinkLabel = styled.p`
-  margin: 0;
+const StyledNavLink = styled(NavLink)`
+  &.active > * {
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `
 
 const Nav = ({ className }) => (
   <List className={className}>
     <ListItem>
-      <Link to={PATHS.HOME}>
-        {/* <LinkContainer> */}
+      <StyledNavLink exact to={PATHS.HOME} activeClassName="active">
         <HomeIcon />
-        {/* <LinkLabel>Inicio</LinkLabel> */}
-        {/* </LinkContainer> */}
-      </Link>
+      </StyledNavLink>
     </ListItem>
     <ListItem>
-      <Link to={PATHS.MOVIES}>
-        {/* <LinkContainer> */}
+      <StyledNavLink exact to={PATHS.MOVIES} activeClassName="active">
         <MovieIcon />
-        {/* <LinkLabel>Películas</LinkLabel> */}
-        {/* </LinkContainer> */}
-      </Link>
+      </StyledNavLink>
     </ListItem>
     <ListItem>
-      <Link to={PATHS.TV_SHOWS}>
-        {/* <LinkContainer> */}
+      <StyledNavLink exact to={PATHS.TV_SHOWS} activeClassName="active">
         <TvShowIcon />
-        {/* <LinkLabel>Series</LinkLabel> */}
-        {/* </LinkContainer> */}
-      </Link>
+      </StyledNavLink>
     </ListItem>
   </List>
 )

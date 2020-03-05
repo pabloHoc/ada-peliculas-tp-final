@@ -11,6 +11,13 @@ const BaseLinkIcon = css`
   width: 25px;
   color: ${({ theme }) => theme.colors.text};
   margin-right: 10px;
+  transform: scale(1);
+  transition: .3s;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+    transform: scale(1.1);
+  }
 `
 
 const FacebookIcon = styled(FacebookSquare)`

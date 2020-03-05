@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react"
 import axios from "axios"
-const CancelToken = axios.CancelToken
 
 export const useGet = url => {
   const [data, setData] = useState({})

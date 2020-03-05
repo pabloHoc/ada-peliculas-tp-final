@@ -10,36 +10,22 @@ import NavTabs from "components/NavTabs/NavTabs"
 import Details from "./sections/Details"
 import Videos from "./sections/Videos"
 import Seasons from "./sections/Seasons"
+import { Flex, Column } from "components/Common/Common"
 
 const TABS = {
-  INFORMACION: "/info",
-  TEMPORADAS: "/seasons/1",
+  INFO: "/info",
+  EPISODIOS: "/seasons/1",
   REPARTO: "/cast",
   VIDEOS: "/videos",
   SIMILARES: "/similar"
 }
 
-const Container = styled.div`
-  flex-grow: 1;
-  padding: 40px;
-`
-
 const TabsWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px 0;
-  margin-bottom: 30px;
-`
-
-const StyledNavTabs = styled(NavTabs)`
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px;
-  padding-bottom: 10px;
-
-  &.active {
-    border-bottom: 2px solid ${({ theme }) => theme.colors.text};
-  }
+  margin: 20px 0 10px;
+  flex-wrap: wrap;
 `
 
 const Media = () => {
@@ -69,17 +55,17 @@ const Media = () => {
     .filter(
       tab =>
         (media === "tv" && tab !== "VIDEOS") ||
-        (media === "movie" && tab !== "TEMPORADAS")
+        (media === "movie" && tab !== "EPISODIOS")
     )
     .map(tab => ({ label: tab, path: `${url}${TABS[tab]}` }))
 
   return (
-    <>
+    <Flex flexDirection="column" alignItems="center">
       <Banner src={data.backdrop_path} />
-      <Container>
-        <TabsWrapper>
-          <StyledNavTabs tabs={tabs} />
-        </TabsWrapper>
+      <TabsWrapper>
+        <NavTabs tabs={tabs} />
+      </TabsWrapper>
+      <Column>
         <Route exact path={`${url}/info`}>
           <Details
             data={{ ...data, title }}
@@ -99,8 +85,8 @@ const Media = () => {
         <Route exact path={`${url}/similar`}>
           <MediaList items={similar.results} media={media} />
         </Route>
-      </Container>
-    </>
+      </Column>
+    </Flex>
   )
 }
 

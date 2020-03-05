@@ -4,15 +4,15 @@ import { capitalizeWords } from "utils/lib/strings"
 const MEDIAS = ["tv", "movie", "person"]
 
 export const useSearchTitle = (search, media) => {
-  if (MEDIAS.includes(media)) {
-    return "Género: " + capitalizeWords(media)
+  if (MEDIAS.includes(media) && !CATEGORY[search]) {
+    return "Género: " + capitalizeWords(search)
   }
 
   if (search === "trending") {
     return `${MEDIA[media]} que son tendencia`
   }
 
-  if (!!media || !MEDIA[media]) {
+  if (!media || !MEDIA[media]) {
     return "Resultados para: " + capitalizeWords(search)
   }
 

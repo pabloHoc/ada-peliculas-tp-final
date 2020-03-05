@@ -11,7 +11,7 @@ const BaseStarIcon = css`
   width: 20px;
   height: 20px;
   margin-right: 3px;
-  color: white;
+  color: ${({ theme }) => theme.colors.primary};
 `
 
 const StarFilledIcon = styled(Star)`

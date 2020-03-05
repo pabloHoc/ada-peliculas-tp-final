@@ -7,29 +7,24 @@ import EpisodeCard from "components/EpisodeCard/EpisodeCard"
 
 const StyledEpisodeCard = styled(EpisodeCard)`
   width: calc(100% / 3 - 40px / 3);
-  /* 
-  @media (max-width: 1200px) {
-    width: calc(25% - 20px);
-  } */
+  margin-bottom: 20px;
 
   @media (max-width: 1200px) {
     width: calc(50% - 20px);
   }
-  /* 
-  @media (max-width: 650px) {
-    width: calc(50% - 20px);
-  } */
 
-  @media (max-width: 400px) {
-    width: calc(100% - 20px);
+  @media (max-width: 600px) {
+    width: calc(100%);
   }
 `
 
-// TODO: add episodes count
+const StyledSelectWrapper = styled(SelectWrapper)`
+  margin-bottom: 20px;
+`
 
 const Seasons = ({ tvShowId, seasons = [] }) => {
   const { season } = useParams()
-  const [{ episodes = [] }] = useMedia(tvShowId, "tv", `season/${season}`)
+  const [{ episodes = [] }] = useMedia(tvShowId, "tv", `season/${season}`, 'es-ES')
   const history = useHistory()
 
   const handleSeasonChange = event =>
@@ -37,7 +32,7 @@ const Seasons = ({ tvShowId, seasons = [] }) => {
 
   return (
     <Flex flexDirection="column">
-      <SelectWrapper>
+      <StyledSelectWrapper>
         <Select onChange={handleSeasonChange}>
           {seasons.map(season => (
             <option key={season.id} value={season.season_number}>
@@ -45,7 +40,7 @@ const Seasons = ({ tvShowId, seasons = [] }) => {
             </option>
           ))}
         </Select>
-      </SelectWrapper>
+      </StyledSelectWrapper>
       <Flex justifyContent="space-between">
         {episodes.map(episode => (
           <StyledEpisodeCard

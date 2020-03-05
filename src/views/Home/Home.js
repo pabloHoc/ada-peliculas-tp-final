@@ -1,11 +1,12 @@
 import React from "react"
-import MediaCategoryPreview from "components/MediaCategoryPreview/MediaCategoryPreview"
+import CategoryPreview from "components/CategoryPreview/CategoryPreview"
+import { Column } from "components/Common/Common"
 
 const Home = () => (
-  <>
-    <MediaCategoryPreview media="movie" category="trending" />
-    <MediaCategoryPreview media="tv" category="trending" />
-  </>
+  <Column>
+    <CategoryPreview media="movie" category="trending" />
+    <CategoryPreview media="tv" category="trending" />
+  </Column>
 )
 
 export default Home

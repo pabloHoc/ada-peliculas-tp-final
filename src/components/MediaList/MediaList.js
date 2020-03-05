@@ -4,23 +4,24 @@ import { Flex } from "components/Common/Common"
 import Card from "components/Card/Card"
 
 const StyledCard = styled(Card)`
-  width: calc(20% - 20px);
-  margin: 10px;
+  width: calc(20%);
+  padding: 0 4px;
+  margin-bottom: 20px;
 
   @media (max-width: 1200px) {
-    width: calc(25% - 20px);
+    width: calc(25%);
   }
 
   @media (max-width: 1000px) {
-    width: calc(33.33% - 20px);
+    width: calc(33.33%);
   }
 
   @media (max-width: 650px) {
-    width: calc(50% - 20px);
+    width: calc(50%);
   }
 
   @media (max-width: 400px) {
-    width: calc(100% - 20px);
+    width: calc(100%);
   }
 `
 

@@ -1,12 +1,13 @@
 import React from "react"
-import MediaCategoryPreview from "components/MediaCategoryPreview/MediaCategoryPreview"
+import CategoryPreview from "components/CategoryPreview/CategoryPreview"
+import { Column } from "components/Common/Common"
 
 const TvShows = () => (
-  <>
-    <MediaCategoryPreview media="tv" category="popular" />
-    <MediaCategoryPreview media="tv" category="top_rated" />
-    <MediaCategoryPreview media="tv" category="on_the_air" />
-  </>
+  <Column>
+    <CategoryPreview media="tv" category="popular" />
+    <CategoryPreview media="tv" category="top_rated" />
+    <CategoryPreview media="tv" category="on_the_air" />
+  </Column>
 )
 
 export default TvShows

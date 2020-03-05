@@ -1,6 +1,9 @@
 import styled from "styled-components"
 
+export const Container = styled.div``
+
 export const Flex = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: ${props => props.flexDirection || "row"};
   justify-content: ${props => props.justifyContent || "flex-start"};
@@ -20,7 +23,23 @@ export const ListItem = styled.li`
 export const Aside = styled.aside``
 
 export const Title = styled.h1`
-  font-size: 64px;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: ${props => props.theme.fonts.sizes[props.as]};
+  font-weight: 300;
+`
+
+export const Text = styled.p`
+  color: ${({ theme }) => theme.colors.text};
+  font-size: ${({ theme }) => theme.fonts.sizes.p};
+  font-weight: 300;
+
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 0;
+`
+
+export const Image = styled.img`
+  width: 100%;
 `
 
 export const Select = styled.select`
@@ -55,4 +74,21 @@ export const SelectWrapper = styled.div`
     border-left: 2px solid ${({ theme }) => theme.colors.text};
     box-sizing: border-box;
   }
+`
+
+export const Link = styled.a`
+  color: ${({ theme }) => theme.colors.primary};
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`
+
+export const Column = styled.div`
+  max-width: 1400px;
+  width: 100%;
+  padding: 20px;
 `
