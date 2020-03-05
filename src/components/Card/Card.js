@@ -5,26 +5,32 @@ import { Image, Title } from "components/Common/Common"
 import { Image as ImageIcon } from "styled-icons/feather/Image"
 
 const StyledImage = styled(Image)`
+  position: absolute;
   transform: scale(0.9);
-  transition: 0.3s;
-  visibility: ${props => (props.loaded ? "visible" : "hidden")};
+  transition: 0.3s, height 0s;
+  visibility: "hidden";
   transition-delay: scale 0.2s, opacity 0.4s;
   opacity: 0;
 
   &.loaded {
+    position: relative;
+    visibility: "visible";
+    height: auto;
     transform: scale(1);
     opacity: 1;
   }
 
   &.error {
-    display: none;
+    height: 0;
   }
 `
 
 const ImageWrapper = styled.div`
   overflow: hidden;
 `
+
 const CardWrapper = styled.div`
+  position: relative;
   & h3 {
     margin-bottom: 5px;
     transition: 0.3s;
@@ -43,6 +49,7 @@ const CardWrapper = styled.div`
 `
 
 const ImageDefault = styled.div`
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.dark};
   padding-top: 150%;
   position: relative;
