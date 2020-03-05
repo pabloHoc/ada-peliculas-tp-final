@@ -19,13 +19,9 @@ const StyledCard = styled(Card)`
   @media (max-width: 650px) {
     width: calc(50%);
   }
-
-  @media (max-width: 400px) {
-    width: calc(100%);
-  }
 `
 
-const MediaList = ({ items = [], media }) => (
+const MediaList = ({ items = [], media, className }) => (
   <Flex>
     {items.map(item => (
       <StyledCard
@@ -36,6 +32,7 @@ const MediaList = ({ items = [], media }) => (
         title={item.title || item.name}
         subtitle={item.character}
         media={media === "multi" ? item.media_type : media}
+        className={className}
       />
     ))}
   </Flex>

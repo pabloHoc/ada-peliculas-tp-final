@@ -24,6 +24,7 @@ const ViewContainer = styled(Flex)`
   flex-basis: 80%;
   flex-grow: 1;
   background-color: ${({ theme }) => theme.colors.background};
+  padding-bottom: 60px;
 `
 
 const StyledFlexContainer = styled(Flex)`

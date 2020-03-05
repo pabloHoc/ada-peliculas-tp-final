@@ -29,6 +29,12 @@ const StyledArrowRight = styled(ArrowRight)`
   margin-left: 20px;
 `
 
+const StyledMediaList = styled(MediaList)`
+  @media (max-width: 400px) {
+    width: calc(100%);
+  }
+`
+
 const CategoryPreview = ({ className, media, category }) => {
   const [{ results = [] }] = useSearch(media, category)
   const [items, setItems] = useState()
@@ -53,7 +59,7 @@ const CategoryPreview = ({ className, media, category }) => {
           <StyledArrowRight />
         </Flex>
       </StyledLink>
-      <MediaList media={media} items={results.slice(0, items)} />
+      <StyledMediaList media={media} items={results.slice(0, items)} />
     </Container>
   )
 }
